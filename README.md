@@ -1,12 +1,5 @@
 # direkt-vom-hof
 
-An embeddable website which allows searching for "Hoflädeli" which allow payment with twint. 
-
-options: 
-- sell everything to twint
-- charge monthly/yearly
-
-
 ## overpass queries
 
 ### fetch all farm shops
