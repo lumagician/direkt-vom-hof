@@ -1,5 +1,5 @@
 async function getData() {
-    const url = "data/shops.geojson";
+    const url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/shops.geojson";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -10,6 +10,47 @@ async function getData() {
     } catch (error) {
         console.error(error.message);
     }
+}
+
+function populateFilterDialog(features) {
+    const dialog = document.getElementById('filter-dialog');
+    dialog.innerHTML = ''; // Clear existing content
+
+    // Define two static filter options
+    const staticFilters = ['payment:twint', 'payment:cash'];
+
+    staticFilters.forEach(type => {
+        const label = document.createElement('label');
+        label.innerHTML = `<input type="checkbox" value="${type}" checked> ${type}<br>`;
+        dialog.appendChild(label);
+    });
+
+    // Add apply button
+    const btn = document.createElement('button');
+    btn.textContent = 'Apply Filter';
+    btn.onclick = () => applyFilter();
+    dialog.appendChild(btn);
+}
+
+
+function applyFilter() {
+    const checkboxes = document.querySelectorAll('#filter-dialog input[type="checkbox"]');
+    const activeTypes = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+    markers.clearLayers(); // Clear old markers
+
+    const filtered = geojsonFeatures.features.filter(f => activeTypes.includes(f.properties.type));
+
+    const filteredLayer = L.geoJson(filtered, {
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(`<pre>${JSON.stringify(feature.properties, null, 2)}</pre>`);
+        }
+    });
+
+    markers.addLayer(filteredLayer);
+    map.addLayer(markers);
 }
 
 (async function initMap() {
@@ -25,7 +66,7 @@ async function getData() {
 
     var customControl = L.Control.extend({
         options: {
-            position: 'bottomright'
+            position: 'topright'
         },
 
         onAdd: function (map) {
@@ -50,7 +91,8 @@ async function getData() {
 
             // Click behavior
             container.onclick = function () {
-                alert('Button clicked!');
+                const dialog = document.getElementById('filter-dialog');
+                dialog.style.display = dialog.style.display === 'none' ? 'block' : 'none';
             };
 
             return container;
@@ -67,11 +109,12 @@ async function getData() {
     }).addTo(map);
 
 
-    const geojsonFeature = await getData();
+    const geojsonFeatures = await getData();
+    populateFilterDialog(geojsonFeatures.features);
 
     var markers = L.markerClusterGroup();
 
-    var geoJsonLayer = L.geoJson(geojsonFeature, {
+    var geoJsonLayer = L.geoJson(geojsonFeatures, {
         onEachFeature: function (feature, layer) {
 
             layer.bindPopup(`<pre>${JSON.stringify(feature.properties, null, 2)}</pre>`);
