@@ -51,7 +51,7 @@ function applyFilter() {
 
     const filtered = geojsonFeatures.features.filter(f => {
         return activeKeys.every(key => {
-            return f.properties[key] === 'yes';
+            return f.properties.tags[key] === 'yes';
         });
     });
 
