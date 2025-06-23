@@ -19,6 +19,7 @@ body,
     padding: 10px;
     z-index: 1000;
     border: 1px solid #ccc;
+    border-radius: 5px;
     display: none;
     /* Hidden by default */
 }

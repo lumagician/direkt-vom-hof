@@ -3,6 +3,11 @@ let map;
 let markers;
 let geojsonFeatures;
 
+const filterTagMap = {
+    'TWINT': 'payment:twint',
+    'Bargeld': 'payment:cash'
+};
+
 async function getData() {
     const url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/shops.geojson";
     try {
@@ -21,25 +26,24 @@ function populateFilterDialog(features) {
     const dialog = document.getElementById('filter-dialog');
     dialog.innerHTML = '';
 
-    const staticFilters = ['payment:twint', 'payment:cash'];
-
-    staticFilters.forEach(type => {
+    Object.entries(filterTagMap).forEach(([labelText, tagKey]) => {
         const label = document.createElement('label');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.value = type;
+        checkbox.value = tagKey;
         checkbox.checked = false;
 
         // Trigger filter on change
         checkbox.addEventListener('change', applyFilter);
 
         label.appendChild(checkbox);
-        label.append(` ${type}`);
+        label.append(` ${labelText}`);
         label.appendChild(document.createElement('br'));
 
         dialog.appendChild(label);
     });
 }
+
 
 function applyFilter() {
     const checkboxes = document.querySelectorAll('#filter-dialog input[type="checkbox"]');
