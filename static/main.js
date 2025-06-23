@@ -25,28 +25,32 @@ async function getData() {
 
     var customControl = L.Control.extend({
         options: {
-            position: 'topright' // 'topleft', 'topright', 'bottomleft', or 'bottomright'
+            position: 'bottomright'
         },
 
         onAdd: function (map) {
-            // Create a container div with a class
+            // Create a container div
             var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
 
-            // Style the button (or use an icon/image)
+            // Apply flexbox styling for centering
+            container.style.display = 'flex';
+            container.style.alignItems = 'center';   // vertical centering
+            container.style.justifyContent = 'center'; // horizontal centering
             container.style.backgroundColor = 'white';
             container.style.width = '30px';
             container.style.height = '30px';
             container.style.cursor = 'pointer';
-            container.innerHTML = '<img src="static/img/filter.svg"/>'; // You can use an icon instead
+            container.style.padding = '0';
 
-            // Prevent map click events when interacting with the control
+            // Add the icon
+            container.innerHTML = '<img src="static/img/filter.svg" style="width:16px; height:16px;">';
+
+            // Prevent map click events
             L.DomEvent.disableClickPropagation(container);
 
-            // Add your button click behavior
+            // Click behavior
             container.onclick = function () {
                 alert('Button clicked!');
-                // Or: map.zoomIn();
-                // Or: trigger a custom function
             };
 
             return container;
@@ -54,8 +58,9 @@ async function getData() {
     });
 
 
+
     map.addControl(new customControl());
-    
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'

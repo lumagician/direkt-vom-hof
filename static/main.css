@@ -6,6 +6,13 @@
    html,
    body,
    #map {
+    z-index: 0;
        height: 100%;
        width: 100%;
+   }
+
+   #filter-dialog {
+    z-index: 10000;
+    position: fixed;
+
    }
