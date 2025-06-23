@@ -37,7 +37,7 @@ async function getData() {
             container.style.width = '30px';
             container.style.height = '30px';
             container.style.cursor = 'pointer';
-            container.innerHTML = '<img src="/static/img/filter.svg"/>'; // You can use an icon instead
+            container.innerHTML = '<img src="static/img/filter.svg"/>'; // You can use an icon instead
 
             // Prevent map click events when interacting with the control
             L.DomEvent.disableClickPropagation(container);

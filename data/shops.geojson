@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "generator": "overpass-turbo",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
-  "timestamp": "2025-06-21T21:13:08Z",
+  "timestamp": "2025-06-23T06:04:46Z",
   "features": [
     {
       "type": "Feature",
@@ -27966,6 +27966,7 @@
         "addr:street": "Route de Fenil",
         "email": "info@larocambole.ch",
         "name": "La Rocambole Microferme",
+        "opening_hours": "Th 17:00-19:00",
         "phone": "+41 76 693 25 44",
         "shop": "farm",
         "website": "https://larocambole.ch/"
@@ -35590,6 +35591,56 @@
         ]
       },
       "id": "node/12943682796"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12943735597",
+        "shop": "farm"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.0368352,
+          46.6297062
+        ]
+      },
+      "id": "node/12943735597"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12943735598",
+        "payment:cash": "yes",
+        "payment:twint": "yes",
+        "shop": "farm"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.0386261,
+          46.6306067
+        ]
+      },
+      "id": "node/12943735598"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12944920817",
+        "name": "Ischhof",
+        "payment:cash": "yes",
+        "payment:twint": "yes",
+        "shop": "farm"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.046553,
+          46.61999
+        ]
+      },
+      "id": "node/12944920817"
     }
   ]
 }
