@@ -99,6 +99,8 @@ function applyFilter() {
     }).setView([46.79854945818969, 8.23148166597295], 12);
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
+    L.control.locate({ position: 'topright' }).addTo(map);
+
 
     const customFilterControl = L.Control.extend({
         options: { position: 'topright' },
