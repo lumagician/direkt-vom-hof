@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Direkt vom Hof – Finde regionale Bauernhöfe und Hofläden in deiner Nähe. Interaktive Karte für frische, lokale Produkte.">
@@ -10,27 +9,27 @@
     
     <link rel="manifest" href="static/manifest.webmanifest" />
 
+    <!-- Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-    <link rel="stylesheet" href="static/leaflet/leaflet.css" />
-    <script src="static/leaflet/leaflet.js"></script>
+    <!-- MarkerCluster from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster-src.js"></script>
+
+    <!-- Locate Control from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol@0.84/dist/L.Control.Locate.min.css" />
+    <script src="https://unpkg.com/leaflet.locatecontrol@0.84/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+    <!-- Your local stylesheet -->
     <link rel="stylesheet" href="static/main.css">
-
-
-    <link rel="stylesheet" href="static/markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="static/markercluster/dist/MarkerCluster.Default.css" />
-    <script src="static/markercluster/dist/leaflet.markercluster-src.js"></script>
-
-    <link rel="stylesheet" href="static/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
-    <script src="static/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-
 </head>
 
 <body>
     <div id="map"></div>
-    <!-- Overlay background -->
     <div id="overlay" style="display: none;"></div>
 
-    <!-- Filter Dialog -->
     <div id="filter-dialog" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,27 +45,24 @@
         </div>
     </div>
 
-
-
-    <!-- Info Dialog -->
     <div id="info-dialog" class="modal" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Über diese Anwendung</h2>
-            <p>Informationen zur Nutzung und zum geladenen Datensatz.</p>
-        </div>
-        <div class="modal-body">
-            <div id="info-content">
-                <!-- Filled dynamically with JS -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Über diese Anwendung</h2>
+                <p>Informationen zur Nutzung und zum geladenen Datensatz.</p>
+            </div>
+            <div class="modal-body">
+                <div id="info-content">
+                    <!-- Filled dynamically with JS -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="close-btn" onclick="closeModal('info-dialog')">&times; Schließen</button>
             </div>
         </div>
-        <div class="modal-actions">
-            <button class="close-btn" onclick="closeModal('info-dialog')">&times; Schließen</button>
-        </div>
     </div>
-</div>
 
-
+    <!-- Your local script -->
     <script src="static/main.js"></script>
 </body>
 
