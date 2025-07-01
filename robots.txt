@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: https://direkt-vom-hof.ch/sitemap.xml
