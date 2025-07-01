@@ -8,6 +8,16 @@ const filterTagMap = {
     'Bargeld': 'payment:cash'
 };
 
+function showModal(dialogId) {
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById(dialogId).style.display = 'block';
+}
+
+function closeModal(dialogId) {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById(dialogId).style.display = 'none';
+}
+
 async function getData() {
     const url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/shops.geojson";
     try {
@@ -23,7 +33,7 @@ async function getData() {
 }
 
 function populateFilterDialog(features) {
-    const dialog = document.getElementById('filter-dialog');
+    const dialog = document.getElementById('filter-content');
     dialog.innerHTML = '';
 
     Object.entries(filterTagMap).forEach(([labelText, tagKey]) => {
@@ -45,7 +55,7 @@ function populateFilterDialog(features) {
 }
 
 function populateInfo(features) {
-    const dialog = document.getElementById('info-dialog');
+    const dialog = document.getElementById('info-content');
     dialog.innerHTML = '';
 
     // Display total number of features
@@ -107,8 +117,7 @@ function applyFilter() {
             container.innerHTML = '<img src="static/img/filter.svg" style="width:16px; height:16px;">';
             L.DomEvent.disableClickPropagation(container);
             container.onclick = function () {
-                const dialog = document.getElementById('filter-dialog');
-                dialog.style.display = dialog.style.display === 'none' ? 'block' : 'none';
+                showModal('filter-dialog');
             };
             return container;
         }
@@ -131,8 +140,7 @@ function applyFilter() {
             container.innerHTML = '<img src="static/img/info.svg" style="width:16px; height:16px;">';
             L.DomEvent.disableClickPropagation(container);
             container.onclick = function () {
-                const dialog = document.getElementById('info-dialog');
-                dialog.style.display = dialog.style.display === 'none' ? 'block' : 'none';
+                showModal('info-dialog');
             };
             return container;
         }
@@ -140,7 +148,7 @@ function applyFilter() {
 
     map.addControl(new customInfoControl());
     map.addControl(new customFilterControl());
-    
+
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,

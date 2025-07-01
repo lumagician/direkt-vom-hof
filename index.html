@@ -22,10 +22,25 @@
 
 <body>
     <div id="map"></div>
-    <div id="filter-dialog" style="display: none;"></div>
-    <div id="info-dialog" style="display: none;"></div>
+    <!-- Overlay background -->
+    <div id="overlay" style="display: none;"></div>
+
+    <!-- Filter Dialog -->
+    <div id="filter-dialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('filter-dialog')">&times;</button>
+            <div id="filter-content"></div>
+        </div>
+    </div>
+
+    <!-- Info Dialog -->
+    <div id="info-dialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('info-dialog')">&times;</button>
+            <div id="info-content"></div>
+        </div>
+    </div>
     <script src="static/main.js"></script>
 </body>
 
 </html>
-
