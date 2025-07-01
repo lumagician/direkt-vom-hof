@@ -97,13 +97,12 @@ async function showInfoDialog(dataset) {
 }
 
 async function getData() {
-    const url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/shops.geojson";
+    const url = "https://direkt-vom-hof.b-cdn.net/shops.geojson";
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-
         return await response.json();
     } catch (error) {
         console.error(error.message);
