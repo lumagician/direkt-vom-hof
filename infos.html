@@ -1,11 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mehr über direkt-vom-hof.ch</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #fdfdfd;
+            color: #222;
+        }
+
+        h1,
+        h2 {
+            color: #2a2a2a;
+        }
+
+        a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Infos trölölö</h1>
+    <h1>Mehr über <code>direkt-vom-hof.ch</code></h1>
+
+    <h2>Warum?</h2>
+    <p>
+        Diese Webapp entstand aus dem Wunsch, regionale Produkte sichtbarer zu machen und Produzent:innen direkt mit
+        Konsument:innen zu verbinden –
+        ohne Zwischenhandel, ohne Werbung, ohne Tracking.
+    </p>
+
+    <h2>Wie?</h2>
+    <p>
+        Die Anwendung ist bewusst einfach gehalten – sie basiert auf JavaScript, HTML und CSS.
+        Gehostet wird sie auf <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub
+            Pages</a>,
+        und der <code>GeoJSON</code>-Datensatz liegt in einem öffentlichen GitHub-Repository.
+        Die App lädt diesen Datensatz direkt über einen <em>raw</em>-Link.
+
+        In regelmässigem Zeitabstand wird ein Query auf die Overpass API gemacht und falls es Änderungen gibt werden sie automatisch commited in das DB repository.
+    </p>
+
+    <h2>Wer?</h2>
+    <p>
+        Ich bin <a href="https://leohofer.dev" target="_blank" rel="noopener noreferrer">Leo Hofer</a> und verbringe
+        gerne meine Freizeit mit kleinen IT-Projekten,
+        die hoffentlich einen sinnvollen Beitrag leisten. Ideen, Feedback oder Pull Requests sind jederzeit willkommen!
+    </p>
+
+    <h2>Was kann die App?</h2>
+    <p>
+        Du kannst landwirtschaftliche Betriebe in der Schweiz entdecken, die ihre Produkte direkt ab Hof verkaufen –
+        ohne Zwischenhändler.
+        Die Karte zeigt dir Standorte, Kontaktinformationen und ggf. Öffnungszeiten, basierend auf den
+        OpenStreetMap-Daten.
+    </p>
+
+
+    <h2>Mitmachen?</h2>
+    <p>
+        Die Daten stammen aus OpenStreetMap. Neue Einträge oder Korrekturen kannst du direkt dort machen.
+        Eine Anleitung findest du auf <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+            target="_blank">dieser Seite</a>.
+    </p>
+
+
+    <h2>Fragen oder Feedback?</h2>
+    <p>
+        Schreib mir gerne via contact[at]leohofer.dev wenn du eine frage hast.
+    </p>
+
+
+    <hr>
+
+    <p>
+        Datenquelle: © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap-Mitwirkende</a>,
+        lizenziert unter der <a href="https://opendatacommons.org/licenses/odbl/" target="_blank">Open Database License
+            (ODbL)</a>.
+    </p>
 </body>
+
 </html>
