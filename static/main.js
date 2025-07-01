@@ -55,7 +55,6 @@ function createPopupContent(feature) {
 
 async function showInfoDialog(dataset) {
     const totalItems = dataset.length;
-    const categories = [...new Set(dataset.map(item => item.category || 'Unbekannt'))];
     const status_url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/status.txt"
     let lastUpdated;
     try {
@@ -77,12 +76,11 @@ async function showInfoDialog(dataset) {
         <h3>Geladene Daten</h3>
         <ul>
             <li><strong>Einträge:</strong> ${totalItems}</li>
-            <li><strong>Kategorien:</strong> ${categories.join(', ')}</li>
             <li><strong>status:</strong> ${lastUpdated}</li>
         </ul>
     `;
 
-    document.getElementById('info-content').innerHTML = html;
+    document.getElementById('info-content-stats').innerHTML = html;
 }
 
 async function getData() {
@@ -122,7 +120,7 @@ function populateFilterDialog(features) {
 }
 
 function populateInfo(features) {
-    const dialog = document.getElementById('info-content');
+    const dialog = document.getElementById('info-content-stats');
     dialog.innerHTML = '';
 
     // Display total number of features

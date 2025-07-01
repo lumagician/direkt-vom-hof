@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Direkt vom Hof – Finde regionale Bauernhöfe und Hofläden in deiner Nähe. Interaktive Karte für frische, lokale Produkte.">
+    <meta name="description"
+        content="Direkt vom Hof – Finde regionale Bauernhöfe und Hofläden in deiner Nähe. Interaktive Karte für frische, lokale Produkte.">
     <title>Direkt vom Hof!</title>
     <link rel="icon" href="static/favicon.png" type="image/x-icon">
-    
+
     <link rel="manifest" href="static/manifest.webmanifest" />
 
     <!-- Leaflet from CDN -->
@@ -49,19 +50,27 @@
     <div id="info-dialog" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Über diese Anwendung</h2>
-                <p>Informationen zur Nutzung und zum geladenen Datensatz.</p>
+                <h2>Informationen</h2>
             </div>
             <div class="modal-body">
-                <div id="info-content">
-                    <!-- Filled dynamically with JS -->
+                <p>Diese Anwendung nutzt offene Geodaten von <a href="https://www.openstreetmap.org/"
+                        target="_blank">OpenStreetMap</a>.</p>
+                <div id="info-content-stats">
+
                 </div>
+                <p>Datenquelle: © <a href="https://www.openstreetmap.org/copyright"
+                        target="_blank">OpenStreetMap-Mitwirkende</a>, lizenziert unter der <a
+                        href="https://opendatacommons.org/licenses/odbl/" target="_blank">Open Database License
+                        (ODbL)</a>.</p>
+                <p>Weitere Informationen findest du auf <a href="infos.html" target="_blank">infos.html</a>.</p>
+                    
             </div>
             <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('info-dialog')">&times; Schließen</button>
+                <button class="close-btn" onclick="closeModal('info-dialog')">✖ Schliesen</button>
             </div>
         </div>
     </div>
+
 
     <!-- Your local script -->
     <script src="static/main.js"></script>
