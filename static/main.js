@@ -21,6 +21,9 @@ function closeModal(dialogId) {
 function createPopupContent(feature) {
     const tags = feature.properties.tags || {};
 
+    const featureType = feature.geometry.type;
+    const featureId = feature.properties.id;
+
     const name = tags.name || 'Unbenannt';
     const website = tags.website
         ? `<a href="${tags.website}" target="_blank">${tags.website}</a>`
@@ -41,13 +44,23 @@ function createPopupContent(feature) {
 
     const produce = tags.produce ? tags.produce : "keine Angaben";
 
+    let osmUrl;
+    if (featureType === "Point") {
+        osmUrl = `<a href="https://www.openstreetmap.org/node/${featureId}" target="_blank">${featureId}</a>`
+    } else if (featureType === "Way") {
+        osmUrl = `<a href="https://www.openstreetmap.org/way/${featureId}" target="_blank">${featureId}</a>`
+    } else {
+        osmUrl = ""
+    }
+
     return `
         <div class="popup-content">
             <h3>${name}</h3>
-            <p><strong>Adresse:</strong><br>${address}</p>
-            <p><strong>Website:</strong> ${website}</p>
             <p><strong>Zahlungsarten:</strong> ${payment}</p>
             <p><strong>Produkte:</strong> ${produce}</p>
+            <p><strong>Adresse:</strong><br>${address}</p>
+            <p><strong>Website:</strong> ${website}</p>
+            <p><strong>Link zu OSM:</strong> ${osmUrl}</p>
         </div>
     `;
 }
@@ -63,7 +76,7 @@ async function showInfoDialog(dataset) {
             throw new Error(`Response status: ${response.status}`);
         }
 
-        lastUpdated =  await response.text();
+        lastUpdated = await response.text();
     } catch (error) {
         console.error(error.message);
     }
@@ -147,8 +160,8 @@ function applyFilter() {
 
     const filteredLayer = L.geoJson(filtered, {
         onEachFeature: function (feature, layer) {
-    layer.bindPopup(createPopupContent(feature));
-}
+            layer.bindPopup(createPopupContent(feature));
+        }
 
     });
 
@@ -232,10 +245,10 @@ function applyFilter() {
     markers = L.markerClusterGroup(); // declared globally
 
     const geoJsonLayer = L.geoJson(geojsonFeatures, {
-    onEachFeature: function (feature, layer) {
-        layer.bindPopup(createPopupContent(feature));
-    }
-});
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(createPopupContent(feature));
+        }
+    });
 
 
     markers.addLayer(geoJsonLayer);
