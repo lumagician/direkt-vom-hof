@@ -53,10 +53,21 @@ function createPopupContent(feature) {
 }
 
 
-function showInfoDialog(dataset) {
+async function showInfoDialog(dataset) {
     const totalItems = dataset.length;
     const categories = [...new Set(dataset.map(item => item.category || 'Unbekannt'))];
-    const lastUpdated = new Date().toLocaleDateString();
+    const status_url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/status.txt"
+    let lastUpdated;
+    try {
+        const response = await fetch(status_url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        lastUpdated =  await response.text();
+    } catch (error) {
+        console.error(error.message);
+    }
 
     const html = `
         <h3>Allgemeine Informationen</h3>
@@ -67,7 +78,7 @@ function showInfoDialog(dataset) {
         <ul>
             <li><strong>Einträge:</strong> ${totalItems}</li>
             <li><strong>Kategorien:</strong> ${categories.join(', ')}</li>
-            <li><strong>Letztes Update:</strong> ${lastUpdated}</li>
+            <li><strong>status:</strong> ${lastUpdated}</li>
         </ul>
     `;
 
@@ -218,7 +229,7 @@ function applyFilter() {
     geojsonFeatures = await getData(); // assigned globally
     populateFilterDialog(geojsonFeatures.features);
     populateInfo(geojsonFeatures.features);
-    showInfoDialog(geojsonFeatures.features)
+    await showInfoDialog(geojsonFeatures.features)
 
     markers = L.markerClusterGroup(); // declared globally
 
