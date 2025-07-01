@@ -68,7 +68,7 @@ function createPopupContent(feature) {
 
 async function showInfoDialog(dataset) {
     const totalItems = dataset.length;
-    const status_url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/status.txt"
+    const status_url = "https://direkt-vom-hof.b-cdn.net/status.txt"
     let lastUpdated;
     try {
         const response = await fetch(status_url);
