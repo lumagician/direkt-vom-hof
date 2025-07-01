@@ -18,6 +18,62 @@ function closeModal(dialogId) {
     document.getElementById(dialogId).style.display = 'none';
 }
 
+function createPopupContent(feature) {
+    const tags = feature.properties.tags || {};
+
+    const name = tags.name || 'Unbenannt';
+    const website = tags.website
+        ? `<a href="${tags.website}" target="_blank">${tags.website}</a>`
+        : 'Keine Website';
+
+    const street = tags['addr:street'] || '';
+    const housenumber = tags['addr:housenumber'] || '';
+    const postcode = tags['addr:postcode'] || '';
+    const city = tags['addr:city'] || '';
+
+    const address = [street, housenumber].filter(Boolean).join(' ') + '<br>' +
+        [postcode, city].filter(Boolean).join(' ');
+
+    const payment = Object.entries(tags)
+        .filter(([key, value]) => key.startsWith('payment:') && value === 'yes')
+        .map(([key]) => key.replace('payment:', '').toUpperCase())
+        .join(', ') || 'Keine Angaben';
+
+    const produce = tags.produce ? tags.produce : "keine Angaben";
+
+    return `
+        <div class="popup-content">
+            <h3>${name}</h3>
+            <p><strong>Adresse:</strong><br>${address}</p>
+            <p><strong>Website:</strong> ${website}</p>
+            <p><strong>Zahlungsarten:</strong> ${payment}</p>
+            <p><strong>Produkte:</strong> ${produce}</p>
+        </div>
+    `;
+}
+
+
+function showInfoDialog(dataset) {
+    const totalItems = dataset.length;
+    const categories = [...new Set(dataset.map(item => item.category || 'Unbekannt'))];
+    const lastUpdated = new Date().toLocaleDateString();
+
+    const html = `
+        <h3>Allgemeine Informationen</h3>
+        <p>Diese Karte zeigt Direktvermarkter in deiner Umgebung.</p>
+        <p>Du kannst nach verschiedenen Kriterien filtern oder direkt auf der Karte stöbern.</p>
+
+        <h3>Geladene Daten</h3>
+        <ul>
+            <li><strong>Einträge:</strong> ${totalItems}</li>
+            <li><strong>Kategorien:</strong> ${categories.join(', ')}</li>
+            <li><strong>Letztes Update:</strong> ${lastUpdated}</li>
+        </ul>
+    `;
+
+    document.getElementById('info-content').innerHTML = html;
+}
+
 async function getData() {
     const url = "https://raw.githubusercontent.com/lumagician/direkt-vom-hof-db/refs/heads/main/shops.geojson";
     try {
@@ -82,9 +138,11 @@ function applyFilter() {
 
     const filteredLayer = L.geoJson(filtered, {
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(`<pre>${JSON.stringify(feature.properties, null, 2)}</pre>`);
-        }
+    layer.bindPopup(createPopupContent(feature));
+}
+
     });
+
 
     markers.addLayer(filteredLayer);
     map.addLayer(markers);
@@ -99,7 +157,7 @@ function applyFilter() {
     }).setView([46.79854945818969, 8.23148166597295], 12);
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
-    L.control.locate({ position: 'topright' }).addTo(map);
+    L.control.locate({ position: 'topright', maxZoom: 20, minZoom: 6 }).addTo(map);
 
 
     const customFilterControl = L.Control.extend({
@@ -160,14 +218,16 @@ function applyFilter() {
     geojsonFeatures = await getData(); // assigned globally
     populateFilterDialog(geojsonFeatures.features);
     populateInfo(geojsonFeatures.features);
+    showInfoDialog(geojsonFeatures.features)
 
     markers = L.markerClusterGroup(); // declared globally
 
     const geoJsonLayer = L.geoJson(geojsonFeatures, {
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(`<pre>${JSON.stringify(feature.properties, null, 2)}</pre>`);
-        }
-    });
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup(createPopupContent(feature));
+    }
+});
+
 
     markers.addLayer(geoJsonLayer);
     map.addLayer(markers);

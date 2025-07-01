@@ -32,18 +32,40 @@
     <!-- Filter Dialog -->
     <div id="filter-dialog" class="modal" style="display: none;">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('filter-dialog')">&times;</button>
-            <div id="filter-content"></div>
+            <div class="modal-header">
+                <h2>Filter anwenden</h2>
+                <p>Wähle Kriterien aus, um die Karte nach deinen Interessen zu filtern.</p>
+            </div>
+            <div class="modal-body">
+                <div id="filter-content"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="close-btn" onclick="closeModal('filter-dialog')">&times; Schließen</button>
+            </div>
         </div>
     </div>
 
+
+
     <!-- Info Dialog -->
     <div id="info-dialog" class="modal" style="display: none;">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('info-dialog')">&times;</button>
-            <div id="info-content"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Über diese Anwendung</h2>
+            <p>Informationen zur Nutzung und zum geladenen Datensatz.</p>
+        </div>
+        <div class="modal-body">
+            <div id="info-content">
+                <!-- Filled dynamically with JS -->
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="close-btn" onclick="closeModal('info-dialog')">&times; Schließen</button>
         </div>
     </div>
+</div>
+
+
     <script src="static/main.js"></script>
 </body>
 
