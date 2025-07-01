@@ -174,7 +174,7 @@ function applyFilter() {
                 cursor: pointer;
                 padding: 0;
             `;
-            container.innerHTML = '<img src="static/img/filter.svg" style="width:16px; height:16px;">';
+            container.innerHTML = '<img src="static/img/filter.svg" style="width:16px; height:16px;" alt="filter icon">';
             L.DomEvent.disableClickPropagation(container);
             container.onclick = function () {
                 showModal('filter-dialog');
@@ -197,7 +197,7 @@ function applyFilter() {
                 cursor: pointer;
                 padding: 0;
             `;
-            container.innerHTML = '<img src="static/img/info.svg" style="width:16px; height:16px;">';
+            container.innerHTML = '<img src="static/img/info.svg" style="width:16px; height:16px;" alt="info icon">';
             L.DomEvent.disableClickPropagation(container);
             container.onclick = function () {
                 showModal('info-dialog');
