@@ -13,8 +13,21 @@ body,
 
 #filter-dialog {
     position: absolute;
-    top: 50px;
-    right: 10px;
+    top: 85px;
+    left: 10px;
+    background-color: white;
+    padding: 10px;
+    z-index: 1000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    /* Hidden by default */
+}
+
+#info-dialog {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     background-color: white;
     padding: 10px;
     z-index: 1000;

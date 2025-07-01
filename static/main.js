@@ -44,6 +44,17 @@ function populateFilterDialog(features) {
     });
 }
 
+function populateInfo(features) {
+    const dialog = document.getElementById('info-dialog');
+    dialog.innerHTML = '';
+
+    // Display total number of features
+    const totalCount = document.createElement('p');
+    totalCount.textContent = `Total features: ${features.length}`;
+    dialog.appendChild(totalCount);
+}
+
+
 
 function applyFilter() {
     const checkboxes = document.querySelectorAll('#filter-dialog input[type="checkbox"]');
@@ -79,7 +90,7 @@ function applyFilter() {
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    const customControl = L.Control.extend({
+    const customFilterControl = L.Control.extend({
         options: { position: 'topright' },
         onAdd: function (map) {
             const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -103,7 +114,33 @@ function applyFilter() {
         }
     });
 
-    map.addControl(new customControl());
+    const customInfoControl = L.Control.extend({
+        options: { position: 'topright' },
+        onAdd: function (map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.style.cssText = `
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                padding: 0;
+            `;
+            container.innerHTML = '<img src="static/img/info.svg" style="width:16px; height:16px;">';
+            L.DomEvent.disableClickPropagation(container);
+            container.onclick = function () {
+                const dialog = document.getElementById('info-dialog');
+                dialog.style.display = dialog.style.display === 'none' ? 'block' : 'none';
+            };
+            return container;
+        }
+    });
+
+    map.addControl(new customInfoControl());
+    map.addControl(new customFilterControl());
+    
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -112,6 +149,7 @@ function applyFilter() {
 
     geojsonFeatures = await getData(); // assigned globally
     populateFilterDialog(geojsonFeatures.features);
+    populateInfo(geojsonFeatures.features);
 
     markers = L.markerClusterGroup(); // declared globally
 
