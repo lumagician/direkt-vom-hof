@@ -97,7 +97,7 @@ async function showInfoDialog(dataset) {
 }
 
 async function getData() {
-    const url = "https://direkt-vom-hof.b-cdn.net/shops.geojson.br";
+    const url = "https://direkt-vom-hof.b-cdn.net/shops.geojson";
     try {
         const response = await fetch(url);
         if (!response.ok) {
